@@ -7,7 +7,7 @@ router.get("/", function (req, res, next) {
   res.send("Rankings");
 });
 
-// GET all rankings in DB
+// GET all pokemon in DB
 router.get("/all", (req, res) => {
   db.all("SELECT * FROM pokemon;", [], (err, rows) => {
     if (err) {

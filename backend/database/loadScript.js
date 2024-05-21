@@ -1,3 +1,7 @@
+// ** Just a loading script to set up the database
+// ** Right now just adds pokemon data in
+// TODO need to set up the whole database in one script
+
 const axios = require("axios");
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
