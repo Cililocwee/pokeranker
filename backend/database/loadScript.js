@@ -1,5 +1,3 @@
-// ** Run this script if you don't have a database ready
-
 const axios = require("axios");
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
@@ -17,7 +15,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
   }
 });
 
-// Collect first 151 Pokemon for ranking
+// Function to fetch data from PokeAPI and insert into the database
 const fetchAndInsertPokemon = async () => {
   try {
     const response = await axios.get(
@@ -29,72 +27,39 @@ const fetchAndInsertPokemon = async () => {
       const pokemonDetails = await axios.get(pokemon.url);
       const id = pokemonDetails.data.id;
       const name = pokemonDetails.data.name;
+      const sprite = pokemonDetails.data.sprites.front_default;
 
       db.run(
-        `INSERT INTO pokemon (id, name) VALUES (?, ?)`,
-        [id, name],
+        `INSERT INTO pokemon (id, name, sprite) VALUES (?, ?, ?)`,
+        [id, name, sprite],
         (err) => {
           if (err) {
             console.error(err.message);
           } else {
-            console.log(`Inserted ${name} with ID ${id}`);
+            console.log(`Inserted ${name} with ID ${id} and sprite ${sprite}`);
           }
         }
       );
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching data from PokeAPI:", error);
   }
 };
 
-// Create table if not exists
+// If the pokemon table doesn't exist, make it do
 db.run(
   `CREATE TABLE IF NOT EXISTS pokemon (
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL
+  id INTEGER PRIMARY KEY,
+  name TEXT
 )`,
   (err) => {
     if (err) {
       console.error(err.message);
       return;
     }
+    // Fetch data and insert into the database
     console.log("Pokemon table created");
-    console.log("Fetching pokemon from POKEAPI");
+    console.log("Fetching Pokemon...");
     fetchAndInsertPokemon();
-  }
-);
-
-db.run(
-  `CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    email TEXT UNIQUE NOT NULL
-);`,
-  (err) => {
-    if (err) {
-      console.error(err.message);
-      return;
-    }
-    console.log("Users table created");
-  }
-);
-
-db.run(
-  `CREATE TABLE ratings (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    pokemon_id INTEGET NOT NULL,
-    rating INTEGER NOT NULL CHECK(rating >= 1 AND rating <= 5),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (pokemon_id) REFERENCES pokemon(id),
-    UNIQUE(user_id, pokemon_id)
-);`,
-  (err) => {
-    if (err) {
-      console.error(err.message);
-      return;
-    } else {
-      console.log("Ratings table created");
-    }
   }
 );
