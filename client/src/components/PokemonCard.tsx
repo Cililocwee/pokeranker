@@ -12,7 +12,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-export default function PokemonCard() {
+export default function PokemonCard({
+  name,
+  number,
+}: {
+  name: string;
+  number: string;
+}) {
   return (
     <div>
       <Box
@@ -41,13 +47,13 @@ export default function PokemonCard() {
                   <Text>Rating: ★★★★</Text>
                 </VStack>
                 <VStack align={""}>
-                  <Text>#100</Text>
-                  <Text>Voltorb</Text>
-                  <Text>Ball Pokemon</Text>
+                  <Text>#{number}</Text>
+                  <Text>{name} </Text>
+                  <Text>[Something] Pokemon</Text>
                 </VStack>
               </HStack>
 
-              <Text>
+              <Text maxWidth={"300px"}>
                 Usually found in power plants. Easily mistaken for a Poké Ball,
                 they have zapped many people.
               </Text>
