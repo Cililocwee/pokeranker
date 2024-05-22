@@ -4,8 +4,7 @@ import PokemonCard from "./components/PokemonCard";
 function App() {
   return (
     <>
-      <div>
-        <h1>Frontend</h1>
+      <div id="App">
         <PokemonCard />
       </div>
     </>
