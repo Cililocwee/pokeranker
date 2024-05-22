@@ -1,29 +1,25 @@
 import { Select } from "@chakra-ui/react";
 import { useState } from "react";
 import PokemonCard from "./PokemonCard";
-import Pokedex from "../interfaces/Pokdex";
+import PokedexEntry from "../interfaces/Pokedex";
 
 export default function PokemonSelector({
-  pokeValues,
   pokedex,
 }: {
-  pokeValues: string[][];
-  pokedex: Pokedex;
+  pokedex: PokedexEntry[];
 }) {
-  const [displayed, setDisplayed] = useState({
-    name: "bulbasaur",
-    number: "001",
-  });
+  const [pokemonOnDisplay, setDisplayed] = useState(pokedex[0]);
 
-  const pokeOptions: string[][] = pokeValues;
-
-  // TODO This should control the pokemon displayed
-  const handleChange = (event) => {
-    const valueArray = event.target.value.split(",");
-
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const newValue = pokedex.find(
+      (element) => element.number === event.currentTarget.value
+    );
     setDisplayed({
-      name: valueArray[1],
-      number: valueArray[0],
+      name: newValue?.name,
+      number: newValue?.number,
+      description: newValue?.description,
+      nickname: newValue?.nickname,
+      rating: newValue?.rating,
     });
   };
 
@@ -36,15 +32,22 @@ export default function PokemonSelector({
         variant={"filled"}
         onChange={handleChange}
       >
-        {pokeOptions?.map(function (pokemon, index) {
+        {pokedex?.map(function (pokemon, index) {
           return (
-            <option value={pokemon} key={index}>
-              #{pokemon[0]} - {pokemon[1]}
+            <option value={pokemon.number} key={index}>
+              #{pokemon.number} - {pokemon.name}
             </option>
           );
         })}
       </Select>
-      <PokemonCard name={displayed?.name} number={displayed?.number} />
+      <PokemonCard
+        name={pokemonOnDisplay?.name}
+        number={pokemonOnDisplay?.number}
+        description={pokemonOnDisplay?.description}
+        rating={pokemonOnDisplay.rating}
+        nickname={pokemonOnDisplay.nickname}
+        image={Number(pokemonOnDisplay.number)}
+      />
     </div>
   );
 }

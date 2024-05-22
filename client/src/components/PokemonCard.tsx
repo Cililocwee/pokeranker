@@ -1,24 +1,22 @@
-import React from "react";
 import {
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
   Text,
   Image,
   Box,
-  Stack,
   HStack,
   VStack,
 } from "@chakra-ui/react";
+import PokemonCardProps from "../interfaces/PokemonCardProps";
 
 export default function PokemonCard({
   name,
   number,
-}: {
-  name: string;
-  number: string;
-}) {
+  description,
+  rating,
+  nickname,
+  image,
+}: PokemonCardProps) {
   return (
     <div>
       <Box
@@ -39,24 +37,21 @@ export default function PokemonCard({
                 >
                   <Image
                     alt="Voltorb"
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/100.png"
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${image}.png`}
                     border={"1px solid black"}
                     backgroundColor={"white"}
                     borderRadius={"8px"}
                   />
-                  <Text>Rating: ★★★★</Text>
+                  <Text>Rating: {"★".repeat(rating) || 0}</Text>
                 </VStack>
                 <VStack align={""}>
                   <Text>#{number}</Text>
                   <Text>{name} </Text>
-                  <Text>[Something] Pokemon</Text>
+                  <Text>{nickname || "The Missing Pokemon"}</Text>
                 </VStack>
               </HStack>
 
-              <Text maxWidth={"300px"}>
-                Usually found in power plants. Easily mistaken for a Poké Ball,
-                they have zapped many people.
-              </Text>
+              <Text maxWidth={"300px"}>{description}</Text>
             </VStack>
           </CardBody>
         </Card>

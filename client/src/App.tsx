@@ -1,17 +1,10 @@
 import "./App.css";
-import PokemonCard from "./components/PokemonCard";
 import PokemonSelector from "./components/PokemonSelector";
+import PokedexEntry from "./interfaces/Pokedex";
 
 function App() {
-  const foo = [
-    ["001", "bulbasaur"],
-    ["002", "ivysaur"],
-    ["003", "venusaur"],
-    ["100", "voltorb"],
-    ["101", "electrode"],
-  ];
-
-  const bar = [
+  // TODO: Replace with array from DB
+  const dummyDex: PokedexEntry[] = [
     {
       name: "bulbasaur",
       number: "001",
@@ -33,8 +26,7 @@ function App() {
   return (
     <>
       <div id="App">
-        <PokemonSelector pokeValues={foo} pokedex={bar} />
-        {/* <PokemonCard name="Voltorb" /> */}
+        <PokemonSelector pokedex={dummyDex} />
       </div>
     </>
   );

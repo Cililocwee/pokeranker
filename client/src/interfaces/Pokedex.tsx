@@ -1,4 +1,4 @@
-export default interface Pokedex {
+export default interface PokedexEntry {
   name: string;
   number: string;
   nickname: string;
