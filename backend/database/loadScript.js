@@ -29,18 +29,41 @@ const fetchAndInsertPokemon = async () => {
 
     for (const pokemon of pokemons) {
       const pokemonDetails = await axios.get(pokemon.url);
+      const speciesDetails = await axios.get(pokemonDetails.data.species.url);
+
       const id = pokemonDetails.data.id;
       const name = pokemonDetails.data.name;
       const sprite = pokemonDetails.data.sprites.front_default;
+      const nickname = speciesDetails.data.genera.find(
+        (genus) => genus.language.name === "en"
+      ).genus;
+
+      let description = "";
+      const versionDescriptions = ["red", "blue", "yellow"];
+      for (const version of versionDescriptions) {
+        const versionFlavorText = speciesDetails.data.flavor_text_entries.find(
+          (entry) =>
+            entry.version.name === version && entry.language.name === "en"
+        );
+        if (versionFlavorText) {
+          description = versionFlavorText.flavor_text.replace(
+            /(\r\n|\n|\r)/gm,
+            " "
+          );
+          break;
+        }
+      }
 
       db.run(
-        `INSERT INTO pokemon (id, name, sprite) VALUES (?, ?, ?)`,
-        [id, name, sprite],
+        `INSERT INTO pokemon (id, name, sprite, nickname, description) VALUES (?, ?, ?, ?, ?)`,
+        [id, name, sprite, nickname, description],
         (err) => {
           if (err) {
             console.error(err.message);
           } else {
-            console.log(`Inserted ${name} with ID ${id} and sprite ${sprite}`);
+            console.log(
+              `Inserted ${name} with ID ${id}, sprite ${sprite}, nickname ${nickname}, and description ${description}`
+            );
           }
         }
       );
@@ -50,12 +73,15 @@ const fetchAndInsertPokemon = async () => {
   }
 };
 
-// If the pokemon table doesn't exist, make it do
+// If the pokemon table doesn't exist, create it
 db.run(
   `CREATE TABLE IF NOT EXISTS pokemon (
-  id INTEGER PRIMARY KEY,
-  name TEXT
-)`,
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    sprite TEXT,
+    nickname TEXT,
+    description TEXT
+  )`,
   (err) => {
     if (err) {
       console.error(err.message);

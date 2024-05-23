@@ -42,16 +42,20 @@ export default function PokemonCard({
                     backgroundColor={"white"}
                     borderRadius={"8px"}
                   />
-                  <Text>Rating: {"★".repeat(rating) || 0}</Text>
+                  <Text>{"★".repeat(rating) || 0}</Text>
                 </VStack>
                 <VStack align={""}>
-                  <Text>#{number}</Text>
-                  <Text>{name} </Text>
-                  <Text>{nickname || "The Missing Pokemon"}</Text>
+                  <Text borderBottom={"4px solid white"}>#{number}</Text>
+                  <Text borderBottom={"4px solid white"}>{name} </Text>
+                  <Text borderBottom={"4px solid white"}>
+                    {nickname || "The Missing Pokemon"}
+                  </Text>
                 </VStack>
               </HStack>
 
-              <Text maxWidth={"300px"}>{description}</Text>
+              <Text borderTop={"4px solid white"} maxWidth={"300px"}>
+                {description}
+              </Text>
             </VStack>
           </CardBody>
         </Card>
