@@ -12,14 +12,15 @@ export default function PokemonSelector({
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newValue = pokedex.find(
-      (element) => element.number === event.currentTarget.value
+      (element) => element.id.toString() === event.currentTarget.value
     );
     setDisplayed({
+      id: newValue?.id,
       name: newValue?.name,
-      number: newValue?.number,
       description: newValue?.description,
       nickname: newValue?.nickname,
-      rating: newValue?.rating,
+      sprite: newValue?.sprite,
+      rating: newValue?.rating || 0,
     });
   };
 
@@ -34,19 +35,23 @@ export default function PokemonSelector({
       >
         {pokedex?.map(function (pokemon, index) {
           return (
-            <option value={pokemon.number} key={index}>
-              #{pokemon.number} - {pokemon.name}
+            <option
+              style={{ textTransform: "capitalize" }}
+              value={pokemon.id}
+              key={index}
+            >
+              #{pokemon.id} - {pokemon.name}
             </option>
           );
         })}
       </Select>
       <PokemonCard
         name={pokemonOnDisplay?.name}
-        number={pokemonOnDisplay?.number}
+        pokedexNumber={pokemonOnDisplay?.id}
         description={pokemonOnDisplay?.description}
-        rating={pokemonOnDisplay.rating}
-        nickname={pokemonOnDisplay.nickname}
-        image={Number(pokemonOnDisplay.number)}
+        rating={pokemonOnDisplay?.rating}
+        nickname={pokemonOnDisplay?.nickname}
+        sprite={pokemonOnDisplay?.sprite}
       />
     </div>
   );

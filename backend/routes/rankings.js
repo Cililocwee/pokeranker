@@ -7,15 +7,4 @@ router.get("/", function (req, res, next) {
   res.send("Rankings");
 });
 
-// GET all pokemon in DB
-router.get("/all", (req, res) => {
-  db.all("SELECT * FROM pokemon;", [], (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ data: rows });
-  });
-});
-
 module.exports = router;

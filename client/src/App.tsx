@@ -1,32 +1,34 @@
+import { useQuery } from "@chakra-ui/react";
 import "./App.css";
 import PokemonSelector from "./components/PokemonSelector";
 import PokedexEntry from "./interfaces/Pokedex";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function App() {
-  // TODO: Replace with array from DB
-  const dummyDex: PokedexEntry[] = [
-    {
-      name: "bulbasaur",
-      number: "001",
-      nickname: "Seed Pokemon",
-      description:
-        "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
-      rating: 5,
-    },
-    {
-      name: "ivysaur",
-      number: "002",
-      nickname: "Seed Pokemon",
-      description:
-        "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.",
-      rating: 4,
-    },
-  ];
+  const [data, setData] = useState<PokedexEntry[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/pokemon/all");
+        setData(response.data.data);
+      } catch (error) {
+        setError("Failed to fetch pokemon data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
       <div id="App">
-        <PokemonSelector pokedex={dummyDex} />
+        <PokemonSelector pokedex={data} />
       </div>
     </>
   );

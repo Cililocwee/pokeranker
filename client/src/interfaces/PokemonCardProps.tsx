@@ -1,8 +1,8 @@
 export default interface PokemonCardProps {
   name: string;
-  number: string;
+  pokedexNumber: number;
   description: string;
   rating: number;
   nickname: string;
-  image: number;
+  sprite: string;
 }

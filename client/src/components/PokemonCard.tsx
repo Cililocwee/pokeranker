@@ -11,11 +11,11 @@ import PokemonCardProps from "../interfaces/PokemonCardProps";
 
 export default function PokemonCard({
   name,
-  number,
+  pokedexNumber,
   description,
   rating,
   nickname,
-  image,
+  sprite,
 }: PokemonCardProps) {
   return (
     <div>
@@ -37,16 +37,21 @@ export default function PokemonCard({
                 >
                   <Image
                     alt="Voltorb"
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${image}.png`}
+                    src={sprite}
                     border={"1px solid black"}
                     backgroundColor={"white"}
                     borderRadius={"8px"}
                   />
-                  <Text>{"★".repeat(rating) || 0}</Text>
+                  <Text>{"★".repeat(rating) || "★"}</Text>
                 </VStack>
                 <VStack align={""}>
-                  <Text borderBottom={"4px solid white"}>#{number}</Text>
-                  <Text borderBottom={"4px solid white"}>{name} </Text>
+                  <Text borderBottom={"4px solid white"}>#{pokedexNumber}</Text>
+                  <Text
+                    borderBottom={"4px solid white"}
+                    textTransform={"capitalize"}
+                  >
+                    {name}{" "}
+                  </Text>
                   <Text borderBottom={"4px solid white"}>
                     {nickname || "The Missing Pokemon"}
                   </Text>
