@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET pokemon listing. */
 router.get("/", function (req, res, next) {
-  res.send("Bulbasaur");
+  res.send("Pokemon");
 });
 
 // GET all pokemon in DB
