@@ -4,5 +4,5 @@ export default interface PokedexEntry {
   sprite: string;
   nickname: string;
   description: string;
-  // rating: number;
+  rating?: number;
 }

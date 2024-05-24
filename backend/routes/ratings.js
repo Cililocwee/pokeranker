@@ -18,6 +18,19 @@ router.get("/all", (req, res) => {
   });
 });
 
+// GET all AVG ratings
+router.get("/all/avg", (req, res) => {
+  const query =
+    "SELECT pokemon_id, AVG(rating) FROM ratings GROUP BY pokemon_id";
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({ data: rows });
+  });
+});
+
 // GET specific avg from pokemon_id
 router.get("/:pokemonId", (req, res) => {
   db.all(
