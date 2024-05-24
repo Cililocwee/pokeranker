@@ -47,7 +47,7 @@ const fetchAndInsertPokemon = async () => {
         );
         if (versionFlavorText) {
           description = versionFlavorText.flavor_text.replace(
-            /(\r\n|\n|\r)/gm,
+            /(\r\n|\n|\r|\f)/gm,
             " "
           );
           break;
@@ -61,9 +61,7 @@ const fetchAndInsertPokemon = async () => {
           if (err) {
             console.error(err.message);
           } else {
-            console.log(
-              `Inserted ${name} with ID ${id}, sprite ${sprite}, nickname ${nickname}, and description ${description}`
-            );
+            console.log(`Inserted ${name} with ID ${id}`);
           }
         }
       );

@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import PokemonCardProps from "../interfaces/PokemonCardProps";
+import DefaultImage from "../assets/0.png";
 
 export default function PokemonCard({
   name,
@@ -36,8 +37,8 @@ export default function PokemonCard({
                   borderRadius={"1em"}
                 >
                   <Image
-                    alt="Voltorb"
-                    src={sprite}
+                    alt={`${nickname}`}
+                    src={sprite || DefaultImage}
                     border={"1px solid black"}
                     backgroundColor={"white"}
                     borderRadius={"8px"}
@@ -45,15 +46,17 @@ export default function PokemonCard({
                   <Text>{"★".repeat(rating) || "★"}</Text>
                 </VStack>
                 <VStack align={""}>
-                  <Text borderBottom={"4px solid white"}>#{pokedexNumber}</Text>
+                  <Text borderBottom={"4px solid white"}>
+                    #{pokedexNumber?.toString().padStart(3, "0") || "000"}
+                  </Text>
                   <Text
                     borderBottom={"4px solid white"}
                     textTransform={"capitalize"}
                   >
-                    {name}{" "}
+                    {name || "Choose a pokemon!"}
                   </Text>
                   <Text borderBottom={"4px solid white"}>
-                    {nickname || "The Missing Pokemon"}
+                    {nickname || "Gotta Catch 'Em All!"}
                   </Text>
                 </VStack>
               </HStack>

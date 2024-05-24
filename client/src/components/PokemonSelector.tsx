@@ -8,7 +8,7 @@ export default function PokemonSelector({
 }: {
   pokedex: PokedexEntry[];
 }) {
-  const [pokemonOnDisplay, setDisplayed] = useState(pokedex[0]);
+  const [pokemonOnDisplay, setDisplayed] = useState<PokedexEntry>(pokedex[0]);
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newValue = pokedex.find(
@@ -27,12 +27,14 @@ export default function PokemonSelector({
   return (
     <div>
       <Select
-        placeholder="Choose a pokemon!"
         maxWidth={"300px"}
         margin={"1em auto"}
         variant={"filled"}
         onChange={handleChange}
+        textTransform={"capitalize"}
+        value={0}
       >
+        <option value={0}>Choose a Pokemon!</option>
         {pokedex?.map(function (pokemon, index) {
           return (
             <option
