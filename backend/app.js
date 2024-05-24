@@ -7,7 +7,7 @@ const cors = require("cors");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var pokemonRouter = require("./routes/pokemon");
-var rankingsRouter = require("./routes/rankings");
+var ratingsRouter = require("./routes/ratings");
 
 var app = express();
 
@@ -21,6 +21,6 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/pokemon", pokemonRouter);
-app.use("/rankings", rankingsRouter);
+app.use("/ratings", ratingsRouter);
 
 module.exports = app;
