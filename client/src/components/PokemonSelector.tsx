@@ -2,6 +2,7 @@ import { Select } from "@chakra-ui/react";
 import { useState } from "react";
 import PokemonCard from "./PokemonCard";
 import PokedexEntry from "../interfaces/PokedexEntry";
+import RatingForm from "./RatingForm";
 
 export default function PokemonSelector({
   pokedex,
@@ -55,6 +56,8 @@ export default function PokemonSelector({
         nickname={pokemonOnDisplay?.nickname}
         sprite={pokemonOnDisplay?.sprite}
       />
+
+      <RatingForm displayedPokemon={pokemonOnDisplay} />
     </div>
   );
 }

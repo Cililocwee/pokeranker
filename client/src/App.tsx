@@ -70,7 +70,7 @@ function App() {
     <>
       <div id="App">
         <PokemonSelector pokedex={pokeData} />
-        <RatingForm />
+        {/* <RatingForm /> */}
       </div>
     </>
   );

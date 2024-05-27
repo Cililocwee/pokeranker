@@ -2,39 +2,43 @@ import {
   Box,
   Button,
   FormControl,
-  FormLabel,
-  Input,
-  Select,
+  Radio,
+  RadioGroup,
+  Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import PokedexEntry from "../interfaces/PokedexEntry";
 
-export default function RatingForm() {
+interface RatingFormProps {
+  displayedPokemon: PokedexEntry;
+}
+
+export default function RatingForm({ displayedPokemon }: RatingFormProps) {
+  const [ratingValue, updateRatingValue] = useState("1");
   const {
     handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm();
 
-  function onSubmit(values) {
-    console.log(values);
+  function onSubmit() {
+    console.log({ ratingValue, displayedPokemon });
   }
 
   return (
     <Box backgroundColor={"lightgray"} padding={"3em"} marginTop={"2em"}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
-          <FormLabel htmlFor="pokemon_id">Pokemon</FormLabel>
-          <Select {...register("pokemon_id")}>
-            <option value="001">Bulbasaur</option>
-            <option value="002">Ivysaur</option>
-          </Select>
-
-          <FormLabel htmlFor="ratingValue">Rating</FormLabel>
-          <Select {...register("ratingValue")}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </Select>
+          <Text textTransform={"capitalize"}>
+            Current Pokemon: #{displayedPokemon?.id} - {displayedPokemon?.name}
+          </Text>
+          <RadioGroup onChange={updateRatingValue}>
+            <Radio value="1">1</Radio>
+            <Radio value="2">2</Radio>
+            <Radio value="3">3</Radio>
+            <Radio value="4">4</Radio>
+            <Radio value="5">5</Radio>
+          </RadioGroup>
         </FormControl>
         <Button
           mt={4}
