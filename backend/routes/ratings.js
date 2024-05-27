@@ -46,4 +46,35 @@ router.get("/:pokemonId", (req, res) => {
   );
 });
 
+// POST submit new rating
+router.post("/:userId/:pokemonId/:rating", async (req, res) => {
+  const userId = req.params.userId;
+  const pokemonId = req.params.pokemonId;
+  const rating = req.params.rating;
+
+  // TODO: Expand on validation
+  if (
+    !userId ||
+    !pokemonId ||
+    !rating ||
+    isNaN(pokemonId) ||
+    isNaN(userId) ||
+    isNaN(rating)
+  ) {
+    return res.status(400).json({ error: "Invalid input data" });
+  }
+
+  db.all(
+    `INSERT INTO ratings (user_id, pokemon_id, rating) VALUES (${userId}, ${pokemonId}, ${rating})`,
+    [],
+    (err, rows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({ data: rows });
+    }
+  );
+});
+
 module.exports = router;
