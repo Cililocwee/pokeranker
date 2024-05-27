@@ -1,10 +1,10 @@
-import { useQuery } from "@chakra-ui/react";
 import "./App.css";
 import PokemonSelector from "./components/PokemonSelector";
-import PokedexEntry from "./interfaces/Pokedex";
+import PokedexEntry from "./interfaces/PokedexEntry";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PokemonRatingResponse from "./interfaces/PokemonRatingResponse";
+import RatingForm from "./components/RatingForm";
 
 function App() {
   const [pokeData, setPokeData] = useState<PokedexEntry[]>([]);
@@ -70,6 +70,7 @@ function App() {
     <>
       <div id="App">
         <PokemonSelector pokedex={pokeData} />
+        <RatingForm />
       </div>
     </>
   );

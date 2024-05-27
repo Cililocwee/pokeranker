@@ -1,7 +1,7 @@
 import { Select } from "@chakra-ui/react";
 import { useState } from "react";
 import PokemonCard from "./PokemonCard";
-import PokedexEntry from "../interfaces/Pokedex";
+import PokedexEntry from "../interfaces/PokedexEntry";
 
 export default function PokemonSelector({
   pokedex,
