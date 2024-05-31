@@ -71,7 +71,7 @@ const fetchAndInsertPokemon = async () => {
   }
 };
 
-// If the pokemon table doesn't exist, create it
+// Create POKEMON
 db.run(
   `CREATE TABLE IF NOT EXISTS pokemon (
     id INTEGER PRIMARY KEY,
@@ -89,5 +89,43 @@ db.run(
     console.log("Pokemon table created");
     console.log("Fetching Pokemon...");
     fetchAndInsertPokemon();
+  }
+);
+
+// Create USERS
+db.run(
+  `CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    email TEXT UNIQUE NOT NULL
+);`,
+  (err) => {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+
+    console.log("Users table created");
+  }
+);
+
+// Create RATINGS
+db.run(
+  `CREATE TABLE IF NOT EXISTS ratings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    pokemon_id INTEGER NOT NULL,
+    rating INTEGER NOT NULL CHECK(rating >= 1 AND rating <= 5),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (pokemon_id) REFERENCES pokemon(id),
+    UNIQUE(user_id, pokemon_id) 
+);`,
+  (err) => {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+
+    console.log("Ratings table created");
   }
 );
