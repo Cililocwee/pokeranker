@@ -1,6 +1,5 @@
 import { HStack, Image, Text, VStack } from "@chakra-ui/react";
 import DefaultImage from "../assets/0.png";
-import RatingSelector from "./RatingSelector";
 
 interface PokemonInfoWindowProps {
   name: string;

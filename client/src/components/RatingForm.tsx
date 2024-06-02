@@ -9,9 +9,16 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PokedexEntry from "../interfaces/PokedexEntry";
+import axios from "axios";
 
 interface RatingFormProps {
   displayedPokemon: PokedexEntry;
+}
+
+interface RatingSubmission {
+  userId: number;
+  pokemonId: number;
+  value: string;
 }
 
 export default function RatingForm({ displayedPokemon }: RatingFormProps) {
@@ -22,8 +29,28 @@ export default function RatingForm({ displayedPokemon }: RatingFormProps) {
   } = useForm();
 
   function onSubmit() {
+    // ** DEV: user is hardcoded to one for DEV/DEBUG
+    const debugRating: RatingSubmission = {
+      userId: 1,
+      pokemonId: displayedPokemon.id,
+      value: ratingValue,
+    };
+
+    handleSubmitRating(debugRating);
     console.log({ ratingValue, displayedPokemon });
   }
+
+  // ** DEV: now users can only submit score ONCE
+  const handleSubmitRating = async (ratingObject: RatingSubmission) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/ratings/${ratingObject.userId}/${ratingObject.pokemonId}/${ratingObject.value}`
+      );
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Box backgroundColor={"lightgray"} padding={"3em"} marginTop={"2em"}>

@@ -1,7 +1,6 @@
 import { Card, CardBody, Box, VStack } from "@chakra-ui/react";
 import PokemonInfoWindow from "./PokemonInfoWindow";
 import PokemonDescription from "./PokemonDescription";
-import RatingSelector from "./RatingSelector";
 
 interface PokemonCardProps {
   name: string;
