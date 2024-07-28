@@ -1,8 +1,4 @@
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
   Box,
   Button,
   FormControl,
@@ -10,6 +6,7 @@ import {
   RadioGroup,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -28,8 +25,7 @@ interface RatingSubmission {
 
 export default function RatingForm({ displayedPokemon }: RatingFormProps) {
   const [ratingValue, updateRatingValue] = useState("1");
-  const [isAnError, setError] = useState(false);
-  const [isSuccessful, setSuccess] = useState(false);
+  const toast = useToast();
 
   const {
     handleSubmit,
@@ -55,12 +51,20 @@ export default function RatingForm({ displayedPokemon }: RatingFormProps) {
         `http://localhost:3000/ratings/${ratingObject.userId}/${ratingObject.pokemonId}/${ratingObject.value}`
       );
       console.log("Response:", response.data);
-      setSuccess(true);
-      setError(false);
+      toast({
+        title: "Rating submitted!",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
-      setError(true);
-      setSuccess(false);
       console.error(error);
+      toast({
+        title: "You've already rated this pokemon",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
 
@@ -90,20 +94,6 @@ export default function RatingForm({ displayedPokemon }: RatingFormProps) {
           Submit
         </Button>
       </form>
-
-      {isAnError ? (
-        <Alert status="error" variant="left-accent">
-          <AlertIcon />
-          <AlertTitle>You've already rated this pokemon.</AlertTitle>
-        </Alert>
-      ) : null}
-
-      {isSuccessful ? (
-        <Alert status="success" variant="left-accent">
-          <AlertIcon />
-          <AlertTitle>Rating submitted!</AlertTitle>
-        </Alert>
-      ) : null}
     </Box>
   );
 }
