@@ -33,9 +33,9 @@ export default function PokemonSelector({
         variant={"filled"}
         onChange={handleChange}
         textTransform={"capitalize"}
-        value={0}
+        value={pokemonOnDisplay.id ? pokemonOnDisplay.id : 0}
+        placeholder="Choose a Pokemon!"
       >
-        <option value={0}>Choose a Pokemon!</option>
         {pokedex?.map(function (pokemon, index) {
           return (
             <option
