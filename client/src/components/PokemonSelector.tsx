@@ -33,7 +33,7 @@ export default function PokemonSelector({
         variant={"filled"}
         onChange={handleChange}
         textTransform={"capitalize"}
-        value={pokemonOnDisplay.id ? pokemonOnDisplay.id : 0}
+        // value={0}
         placeholder="Choose a Pokemon!"
       >
         {pokedex?.map(function (pokemon, index) {

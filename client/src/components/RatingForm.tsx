@@ -4,6 +4,7 @@ import {
   FormControl,
   Radio,
   RadioGroup,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -60,11 +61,13 @@ export default function RatingForm({ displayedPokemon }: RatingFormProps) {
             Current Pokemon: #{displayedPokemon?.id} - {displayedPokemon?.name}
           </Text>
           <RadioGroup onChange={updateRatingValue}>
-            <Radio value="1">1</Radio>
-            <Radio value="2">2</Radio>
-            <Radio value="3">3</Radio>
-            <Radio value="4">4</Radio>
-            <Radio value="5">5</Radio>
+            <Stack spacing={4} direction={"row"} justify="center">
+              <Radio value="1">1</Radio>
+              <Radio value="2">2</Radio>
+              <Radio value="3">3</Radio>
+              <Radio value="4">4</Radio>
+              <Radio value="5">5</Radio>
+            </Stack>
           </RadioGroup>
         </FormControl>
         <Button
