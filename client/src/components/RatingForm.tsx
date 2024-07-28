@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Box,
   Button,
   FormControl,
@@ -24,6 +28,9 @@ interface RatingSubmission {
 
 export default function RatingForm({ displayedPokemon }: RatingFormProps) {
   const [ratingValue, updateRatingValue] = useState("1");
+  const [isAnError, setError] = useState(false);
+  const [isSuccessful, setSuccess] = useState(false);
+
   const {
     handleSubmit,
     formState: { isSubmitting },
@@ -48,7 +55,11 @@ export default function RatingForm({ displayedPokemon }: RatingFormProps) {
         `http://localhost:3000/ratings/${ratingObject.userId}/${ratingObject.pokemonId}/${ratingObject.value}`
       );
       console.log("Response:", response.data);
+      setSuccess(true);
+      setError(false);
     } catch (error) {
+      setError(true);
+      setSuccess(false);
       console.error(error);
     }
   };
@@ -79,6 +90,20 @@ export default function RatingForm({ displayedPokemon }: RatingFormProps) {
           Submit
         </Button>
       </form>
+
+      {isAnError ? (
+        <Alert status="error" variant="left-accent">
+          <AlertIcon />
+          <AlertTitle>You've already rated this pokemon.</AlertTitle>
+        </Alert>
+      ) : null}
+
+      {isSuccessful ? (
+        <Alert status="success" variant="left-accent">
+          <AlertIcon />
+          <AlertTitle>Rating submitted!</AlertTitle>
+        </Alert>
+      ) : null}
     </Box>
   );
 }
