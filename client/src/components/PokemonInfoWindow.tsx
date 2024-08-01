@@ -30,7 +30,7 @@ export default function PokemonInfoWindow({
           backgroundColor={"white"}
           borderRadius={"8px"}
         />
-        <Text>{"★".repeat(rating) || "★"}</Text>
+        <Text>Avg: {"★".repeat(rating) || "Unrated"}</Text>
       </VStack>
       <VStack align={""}>
         <Text borderBottom={"4px solid white"}>

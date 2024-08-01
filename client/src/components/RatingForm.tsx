@@ -90,6 +90,7 @@ export default function RatingForm({
           </RadioGroup>
         </FormControl>
         <Button
+          isDisabled={isAlreadyRated}
           mt={4}
           colorScheme="teal"
           isLoading={isSubmitting}
