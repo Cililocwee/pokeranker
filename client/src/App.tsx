@@ -4,7 +4,8 @@ import PokedexEntry from "./interfaces/PokedexEntry";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PokemonRatingResponse from "./interfaces/PokemonRatingResponse";
-import RatingForm from "./components/RatingForm";
+import LogIn from "./components/LogIn";
+import { Button, Text } from "@chakra-ui/react";
 
 function App() {
   const [pokeData, setPokeData] = useState<PokedexEntry[]>([]);
@@ -71,6 +72,7 @@ function App() {
       <div id="App">
         <PokemonSelector pokedex={pokeData} />
         {/* <RatingForm /> */}
+        {/* <LogIn /> */}
       </div>
     </>
   );
