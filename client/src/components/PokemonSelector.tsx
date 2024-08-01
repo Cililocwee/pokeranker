@@ -57,7 +57,11 @@ export default function PokemonSelector({
         sprite={pokemonOnDisplay?.sprite}
       />
 
-      <RatingForm displayedPokemon={pokemonOnDisplay} />
+      {/* SMELL: I don't like how isAlreadyRated is handled */}
+      <RatingForm
+        displayedPokemon={pokemonOnDisplay}
+        isAlreadyRated={pokemonOnDisplay?.rating ? true : false}
+      />
     </div>
   );
 }

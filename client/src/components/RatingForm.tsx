@@ -15,6 +15,7 @@ import axios from "axios";
 
 interface RatingFormProps {
   displayedPokemon: PokedexEntry;
+  isAlreadyRated: boolean;
 }
 
 interface RatingSubmission {
@@ -23,7 +24,10 @@ interface RatingSubmission {
   value: string;
 }
 
-export default function RatingForm({ displayedPokemon }: RatingFormProps) {
+export default function RatingForm({
+  displayedPokemon,
+  isAlreadyRated,
+}: RatingFormProps) {
   const [ratingValue, updateRatingValue] = useState("1");
   const toast = useToast();
 
@@ -75,7 +79,7 @@ export default function RatingForm({ displayedPokemon }: RatingFormProps) {
           <Text textTransform={"capitalize"}>
             Current Pokemon: #{displayedPokemon?.id} - {displayedPokemon?.name}
           </Text>
-          <RadioGroup onChange={updateRatingValue}>
+          <RadioGroup onChange={updateRatingValue} isDisabled={isAlreadyRated}>
             <Stack spacing={4} direction={"row"} justify="center">
               <Radio value="1">1</Radio>
               <Radio value="2">2</Radio>
