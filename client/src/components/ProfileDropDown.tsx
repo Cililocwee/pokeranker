@@ -24,8 +24,6 @@ export default function ProfileDropDown({ onSignOut }: ProfileDropDownProps) {
         />
       </MenuButton>
       <MenuList fontSize={"lg"}>
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>Settings</MenuItem>
         <MenuItem onClick={onSignOut}>Sign Out</MenuItem>
       </MenuList>
     </Menu>

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PokedexEntry from "../interfaces/PokedexEntry";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface RatingFormProps {
   displayedPokemon: PokedexEntry;
@@ -19,7 +20,7 @@ interface RatingFormProps {
 }
 
 interface RatingSubmission {
-  userId: number;
+  userId: number | string;
   pokemonId: number;
   value: string;
 }
@@ -30,6 +31,7 @@ export default function RatingForm({
 }: RatingFormProps) {
   const [ratingValue, updateRatingValue] = useState("1");
   const toast = useToast();
+  const { user } = useAuth0();
 
   const {
     handleSubmit,
@@ -37,9 +39,10 @@ export default function RatingForm({
   } = useForm();
 
   function onSubmit() {
-    // ** DEV: user is hardcoded to one for DEV/DEBUG
+    // ** DEV: how I handle this id is smelly
+
     const debugRating: RatingSubmission = {
-      userId: 1,
+      userId: user?.sub?.split("|")[1],
       pokemonId: displayedPokemon.id,
       value: ratingValue,
     };

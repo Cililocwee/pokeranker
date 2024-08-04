@@ -3,6 +3,8 @@ import { useState } from "react";
 import PokemonCard from "./PokemonCard";
 import PokedexEntry from "../interfaces/PokedexEntry";
 import RatingForm from "./RatingForm";
+import axios from "axios";
+import PokemonRatingResponse from "../interfaces/PokemonRatingResponse";
 
 export default function PokemonSelector({
   pokedex,
@@ -57,11 +59,8 @@ export default function PokemonSelector({
         sprite={pokemonOnDisplay?.sprite}
       />
 
-      {/* SMELL: I don't like how isAlreadyRated is handled */}
-      <RatingForm
-        displayedPokemon={pokemonOnDisplay}
-        isAlreadyRated={pokemonOnDisplay?.rating ? true : false}
-      />
+      {/* DEV SMELL: isAlreadyRated is unimplemented until I can find a better way */}
+      <RatingForm displayedPokemon={pokemonOnDisplay} isAlreadyRated={false} />
     </div>
   );
 }
