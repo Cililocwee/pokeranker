@@ -3,8 +3,6 @@ import { useState } from "react";
 import PokemonCard from "./PokemonCard";
 import PokedexEntry from "../interfaces/PokedexEntry";
 import RatingForm from "./RatingForm";
-import axios from "axios";
-import PokemonRatingResponse from "../interfaces/PokemonRatingResponse";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function PokemonSelector({

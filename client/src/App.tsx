@@ -4,19 +4,15 @@ import PokedexEntry from "./interfaces/PokedexEntry";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PokemonRatingResponse from "./interfaces/PokemonRatingResponse";
-import LogIn from "./components/LogIn";
-import { Button, Text } from "@chakra-ui/react";
 
 function App() {
   const [pokeData, setPokeData] = useState<PokedexEntry[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchPokeData = async () => {
       try {
         const response = await axios.get("http://localhost:3000/pokemon/all");
-        // setPokeData(response.data.data);
         return response.data.data;
       } catch (error) {
         console.error("Failed to fetch pokedata.");
