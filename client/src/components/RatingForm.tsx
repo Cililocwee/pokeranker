@@ -39,22 +39,22 @@ export default function RatingForm({
   } = useForm();
 
   function onSubmit() {
-    // ** DEV: how I handle this id is smelly
+    // !! DEV: how I handle this id is smelly
 
-    const debugRating: RatingSubmission = {
+    const userRating: RatingSubmission = {
       userId: user?.sub?.split("|")[1],
       pokemonId: displayedPokemon.id,
       value: ratingValue,
     };
 
-    handleSubmitRating(debugRating);
+    handleSubmitRating(userRating);
     console.log({ ratingValue, displayedPokemon });
   }
 
   // ** DEV: now users can only submit score ONCE
   const handleSubmitRating = async (ratingObject: RatingSubmission) => {
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `http://localhost:3000/ratings/${ratingObject.userId}/${ratingObject.pokemonId}/${ratingObject.value}`
       );
       console.log("Response:", response.data);
@@ -67,7 +67,7 @@ export default function RatingForm({
     } catch (error) {
       console.error(error);
       toast({
-        title: "You've already rated this pokemon",
+        title: "Something went wrong",
         status: "error",
         duration: 2000,
         isClosable: true,

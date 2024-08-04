@@ -5,6 +5,7 @@ import PokedexEntry from "../interfaces/PokedexEntry";
 import RatingForm from "./RatingForm";
 import axios from "axios";
 import PokemonRatingResponse from "../interfaces/PokemonRatingResponse";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function PokemonSelector({
   pokedex,
@@ -12,6 +13,8 @@ export default function PokemonSelector({
   pokedex: PokedexEntry[];
 }) {
   const [pokemonOnDisplay, setDisplayed] = useState<PokedexEntry>(pokedex[0]);
+
+  const { isAuthenticated } = useAuth0();
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newValue = pokedex.find(
@@ -60,7 +63,13 @@ export default function PokemonSelector({
       />
 
       {/* DEV SMELL: isAlreadyRated is unimplemented until I can find a better way */}
-      <RatingForm displayedPokemon={pokemonOnDisplay} isAlreadyRated={false} />
+
+      {isAuthenticated && (
+        <RatingForm
+          displayedPokemon={pokemonOnDisplay}
+          isAlreadyRated={false}
+        />
+      )}
     </div>
   );
 }
