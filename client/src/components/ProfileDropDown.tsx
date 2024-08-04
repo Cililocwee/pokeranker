@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { Avatar, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import React from "react";
 
@@ -6,6 +7,8 @@ interface ProfileDropDownProps {
 }
 
 export default function ProfileDropDown({ onSignOut }: ProfileDropDownProps) {
+  const { user } = useAuth0();
+
   return (
     <Menu>
       <MenuButton
@@ -15,7 +18,7 @@ export default function ProfileDropDown({ onSignOut }: ProfileDropDownProps) {
       >
         <Avatar
           size={"lg"}
-          src="../assets/0.png"
+          src={user?.picture}
           name="Dev"
           border={"1px solid lightgray"}
         />
